@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, DataVisualizationActivity.class);
                 startActivity(intent);
+
+                //액티비티 전환 애니메이션
+                overridePendingTransition(R.anim.move_right_in_activity, R.anim.move_left_out_activity);
             }
         });
 

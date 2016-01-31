@@ -17,6 +17,8 @@ import android.view.ViewGroup;
  * Use the {@link ExplanationInputFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//dv 4번째 fragment
 public class ExplanationInputFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

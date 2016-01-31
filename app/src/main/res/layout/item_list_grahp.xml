@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardElevation="2dp"
+    card_view:cardBackgroundColor="#f9f4f4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_margin="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/textView_graph_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="막대 그래프"/>
+
+        <ImageView
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/textView_graph_name"
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/imageView_graph"
+            android:layout_width="110dp"
+            android:layout_height="110dp"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

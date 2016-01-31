@@ -10,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +35,14 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
 
     FragmentManager fm;
 
+    ArrayList<Fragment> mFragments;
+
+    //프래그먼트를 찾을 tag
+    String[] fragmentTags = {"graphSelection", "designSelection", "dataInput", "explanationInput", "preview"};
+
+    //현재 어느 단계에 있는지 알려주는 플래그
+    int section;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,30 +59,53 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
         ab.setDisplayShowCustomEnabled(true);  //enable overriding the default toolbar layout
         ab.setDisplayShowTitleEnabled(false);  //disable the default title element here(for centered title)
 
+        //inital fragment
+        mFragments = new ArrayList<>();
+        mFragments.add(GraphSelectionListFragment.newInstance());
+        mFragments.add(DesignSelectionFragment.newInstance("", ""));
+        mFragments.add(DataInputFragment.newInstance("", ""));
+        mFragments.add(ExplanationInputFragment.newInstance("", ""));
+        mFragments.add(PreviewFragment.newInstance("", ""));
+
         fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.container_fragment);
 
         if (fragment == null) {
-            fm.beginTransaction().add(R.id.container_fragment, GraphSelectionListFragment.newInstance()).commit();
+            section = 0;
+            fm.beginTransaction().add(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
         }
-
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (section < 3) {  //1, 2, 3단계 처리
+                    section++;
+                    fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
+                }else if(section == 3){  //4단계(마지막 전) 처리
+                    section++;
+                    fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
+                    btnNext.setText("완료");
+                }
+                else{  //5단계(마지막) 처리
+                    //Todo: 데이터 시각화 구현
+                    Toast.makeText(DataVisualizationActivity.this, "마지막 단계입니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-
+        //Todo: 이전버튼인지 취소 버튼인지 상의.
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //이전버튼이라면
+                if (section > 0) {
+                    section--;
+                    fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
+                }else{
+                    Toast.makeText(DataVisualizationActivity.this, "1번째 단계입니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
     }
 
 

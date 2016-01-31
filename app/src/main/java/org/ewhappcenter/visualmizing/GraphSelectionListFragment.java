@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ewhappcenter.visualmizing.dummy.DummyContent;
+import org.ewhappcenter.visualmizing.model.GraphItem;
+import org.ewhappcenter.visualmizing.utils.SpacesItemDecoration;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +28,7 @@ import butterknife.ButterKnife;
  * Use the {@link GraphSelectionListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+//dv 1번째 fragment
 public class GraphSelectionListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,10 +77,17 @@ public class GraphSelectionListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //그래프 아이템 추가
+        ArrayList<GraphItem> graphItems = new ArrayList<>();
+        graphItems.add(new GraphItem("막대 그래프", R.mipmap.ic_launcher, false));
+        graphItems.add(new GraphItem("꺽은선 그래프", R.mipmap.ic_launcher, false));
+        graphItems.add(new GraphItem("원형 그래프", R.mipmap.ic_launcher, false));
+        graphItems.add(new GraphItem("글자 구름", R.mipmap.ic_launcher, false));
+
         // Set the adapter
         rvGraph.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        rvGraph.setAdapter(new GraphSelectionListAdapter(DummyContent.ITEMS, mOnListFragmentInteractionListener));
-
+        rvGraph.addItemDecoration(new SpacesItemDecoration(16));
+        rvGraph.setAdapter(new GraphSelectionListAdapter(getActivity(), graphItems));
 
 
     }

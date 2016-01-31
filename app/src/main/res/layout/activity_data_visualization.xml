@@ -60,20 +60,36 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <RelativeLayout
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <View
+                android:layout_centerInParent="true"
+                android:id="@+id/view_center"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+
             <Button
                 android:id="@+id/button_cancel"
-                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@id/view_center"
+                android:textColor="#64d4b8"
+                android:minHeight="36dp"
+
+                android:minWidth="100dp"
                 android:text="취소"
+                android:background="@drawable/dv_button_shape_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <Button
+                android:textColor="#ffffff"
                 android:id="@+id/button_next"
-                android:layout_alignParentRight="true"
-                android:text="다음"
+                android:minHeight="36dp"
+                android:minWidth="100dp"
+                android:layout_toRightOf="@id/view_center"
+                android:text="다음 단계"
+                android:background="@drawable/dv_button_shape_select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>

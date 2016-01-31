@@ -14,10 +14,11 @@ import android.view.ViewGroup;
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PerviewFragment#newInstance} factory method to
+ * Use the {@link PreviewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PerviewFragment extends Fragment {
+//dv 5번째 fragment
+public class PreviewFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +30,7 @@ public class PerviewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PerviewFragment() {
+    public PreviewFragment() {
         // Required empty public constructor
     }
 
@@ -42,8 +43,8 @@ public class PerviewFragment extends Fragment {
      * @return A new instance of fragment PerviewFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PerviewFragment newInstance(String param1, String param2) {
-        PerviewFragment fragment = new PerviewFragment();
+    public static PreviewFragment newInstance(String param1, String param2) {
+        PreviewFragment fragment = new PreviewFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);

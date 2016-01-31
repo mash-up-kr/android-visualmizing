@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import org.ewhappcenter.visualmizing.model.DataVisualizationItem;
+import org.ewhappcenter.visualmizing.model.GraphItem;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -21,7 +24,6 @@ import butterknife.ButterKnife;
 public class DataVisualizationActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -44,6 +46,8 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
     //현재 어느 단계에 있는지 알려주는 플래그
     int section;
 
+    DataVisualizationItem mDataVisualizationItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,9 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setDisplayShowCustomEnabled(true);  //enable overriding the default toolbar layout
         ab.setDisplayShowTitleEnabled(false);  //disable the default title element here(for centered title)
+
+        //모델 객체 생성
+        mDataVisualizationItem = new DataVisualizationItem();
 
         //inital fragment
         mFragments = new ArrayList<>();
@@ -76,15 +83,21 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
             fm.beginTransaction().add(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
         }
 
+        //Todo: 프래그먼트 전환 애니메이션 구현
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (section < 3) {  //1, 2, 3단계 처리
                     section++;
-                    fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
+                    fm.beginTransaction().setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity)
+                            .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
+                            .commit();
+
                 } else if (section == 3) {  //4단계(마지막 전) 처리
                     section++;
-                    fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
+                    fm.beginTransaction().setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity)
+                            .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
+                            .commit();
                     btnNext.setText("완료");
                 } else {  //5단계(마지막) 처리
                     //Todo: 데이터 시각화 구현
@@ -100,7 +113,9 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
                 //이전버튼이라면
                 if (section > 0) {
                     section--;
-                    fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
+                    fm.beginTransaction().setCustomAnimations(R.anim.move_left_in_activity, R.anim.move_right_out_activity)
+                            .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
+                            .commit();
                     if (section == 3) {
                         btnNext.setText("다음 단계");
                     }
@@ -109,6 +124,15 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+
+        //액티비티 전환 애니메이션
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
     @Override

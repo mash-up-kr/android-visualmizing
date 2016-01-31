@@ -24,6 +24,26 @@ public class DataVisualizationItem {
     //시각화할 데이터
     ArrayList<HashMap<String, Double>> dataList;
 
+    public DataVisualizationItem() {
+        this.chart = 0;
+        this.singleColor = 0;
+        this.pattern = 0;
+        this.isLabel = false;
+        this.textSize = 0;
+        this.textStyle = 0;
+        this.dataList = null;
+    }
+
+    public DataVisualizationItem(int chart, int singleColor, int pattern, boolean isLabel, int textSize, int textStyle, ArrayList<HashMap<String, Double>> dataList) {
+        this.chart = chart;
+        this.singleColor = singleColor;
+        this.pattern = pattern;
+        this.isLabel = isLabel;
+        this.textSize = textSize;
+        this.textStyle = textStyle;
+        this.dataList = dataList;
+    }
+
     public int getChart() {
         return chart;
     }

@@ -62,8 +62,6 @@ public class GraphSelectionListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -88,8 +86,6 @@ public class GraphSelectionListFragment extends Fragment {
         rvGraph.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvGraph.addItemDecoration(new SpacesItemDecoration(16));
         rvGraph.setAdapter(new GraphSelectionListAdapter(getActivity(), graphItems));
-
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event

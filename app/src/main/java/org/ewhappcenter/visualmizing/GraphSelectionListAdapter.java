@@ -19,6 +19,9 @@ public class GraphSelectionListAdapter extends RecyclerView.Adapter<GraphSelecti
     private Context mContext;
     private ArrayList<GraphItem> mGraphItemArrayList;
 
+    //현재 체크된 그래프 id
+    private int currentCheckId = -1;
+
     public GraphSelectionListAdapter(Context context, ArrayList<GraphItem> graphItemArrayList) {
         mContext = context;
         mGraphItemArrayList = graphItemArrayList;
@@ -38,6 +41,7 @@ public class GraphSelectionListAdapter extends RecyclerView.Adapter<GraphSelecti
         holder.ivGraph.setImageResource(graphItem.getResId());
 
         //그래프 선택 여부
+        //Todo: 하나만 선택되게 만든다.
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,11 +49,11 @@ public class GraphSelectionListAdapter extends RecyclerView.Adapter<GraphSelecti
                 graphItem.setSelected(!graphItem.isSelected());
 
                 //그래프 선택 여부 표시
-                for(int i=0; i<mGraphItemArrayList.size(); i++){
-                    if(graphItem.isSelected()){
-                        ((CardView)v).setCardBackgroundColor(Color.parseColor("#64d4b8"));
-                    }else{
-                        ((CardView)v).setCardBackgroundColor(Color.parseColor("#f9f4f4"));
+                for (int i = 0; i < mGraphItemArrayList.size(); i++) {
+                    if (graphItem.isSelected()) {
+                        ((CardView) v).setCardBackgroundColor(Color.parseColor("#64d4b8"));
+                    } else {
+                        ((CardView) v).setCardBackgroundColor(Color.parseColor("#f9f4f4"));
                     }
                 }
             }

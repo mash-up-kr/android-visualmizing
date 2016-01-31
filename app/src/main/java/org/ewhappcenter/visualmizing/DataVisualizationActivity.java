@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+//Todo: GraphItem객체 프레그먼트로 전달하기
 public class DataVisualizationActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -81,12 +82,11 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
                 if (section < 3) {  //1, 2, 3단계 처리
                     section++;
                     fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
-                }else if(section == 3){  //4단계(마지막 전) 처리
+                } else if (section == 3) {  //4단계(마지막 전) 처리
                     section++;
                     fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
                     btnNext.setText("완료");
-                }
-                else{  //5단계(마지막) 처리
+                } else {  //5단계(마지막) 처리
                     //Todo: 데이터 시각화 구현
                     Toast.makeText(DataVisualizationActivity.this, "마지막 단계입니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -101,13 +101,15 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
                 if (section > 0) {
                     section--;
                     fm.beginTransaction().replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
-                }else{
+                    if (section == 3) {
+                        btnNext.setText("다음 단계");
+                    }
+                } else {
                     Toast.makeText(DataVisualizationActivity.this, "1번째 단계입니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {

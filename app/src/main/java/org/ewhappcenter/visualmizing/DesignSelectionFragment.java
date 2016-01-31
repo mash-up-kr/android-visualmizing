@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.ewhappcenter.visualmizing.model.DataVisualizationItem;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -50,6 +52,8 @@ public class DesignSelectionFragment extends Fragment {
 
     @Bind(R.id.imageView_pattern)
     ImageView ivPattern;
+
+    DataVisualizationItem mDataVisualizationItem;
 
     public DesignSelectionFragment() {
         // Required empty public constructor
@@ -93,10 +97,14 @@ public class DesignSelectionFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Todo: 색깔 추가
-        //Todo: 무늬 추가
+        //Dv객체 획득
+        mDataVisualizationItem = ((DataVisualizationActivity)getActivity()).getDvItem();
+
+        //Todo: 색 정보 객체 추가, Color picker용
+        //Todo: 무늬 정보 객체 추가, pattern picker용
 
         //Todo; 디자인은 회전하는 식으로 보여준다. 리스트의 끝에 오면 0번 인덱스로 조정, 원형큐처럼
+        //Todo: 여기서 말하는 디자인이란.. 무엇인가.....?
         //디자인 선택 버튼
         ibLeft.setOnClickListener(new View.OnClickListener() {
             @Override

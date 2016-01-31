@@ -34,28 +34,36 @@ public class GraphSelectionListAdapter extends RecyclerView.Adapter<GraphSelecti
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final GraphItem graphItem = mGraphItemArrayList.get(position);
 
         holder.tvGraphName.setText(graphItem.getName());
         holder.ivGraph.setImageResource(graphItem.getResId());
+        //뷰에 선택 여부 표시
+        if (graphItem.isSelected()) {
+            ((CardView) holder.mView).setCardBackgroundColor(Color.parseColor("#64d4b8"));
+        } else {
+            ((CardView) holder.mView).setCardBackgroundColor(Color.parseColor("#f9f4f4"));
+        }
 
         //그래프 선택 여부
-        //Todo: 하나만 선택되게 만든다.
+        //Todo: 하나만 선택되게 만든다.(O) or toggle 가능하게(O)
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //그래프 선택 토글
-                graphItem.setSelected(!graphItem.isSelected());
-
-                //그래프 선택 여부 표시
+                //선택 정보 clear
                 for (int i = 0; i < mGraphItemArrayList.size(); i++) {
-                    if (graphItem.isSelected()) {
-                        ((CardView) v).setCardBackgroundColor(Color.parseColor("#64d4b8"));
-                    } else {
-                        ((CardView) v).setCardBackgroundColor(Color.parseColor("#f9f4f4"));
-                    }
+                    mGraphItemArrayList.get(i).setSelected(false);
                 }
+
+                if (currentCheckId == position) {  //toggle 기능
+                    currentCheckId = -1;  //toggle 기능 초기화
+                } else {  //하나만 선택하게
+                    //선택 정보 set
+                    graphItem.setSelected(!graphItem.isSelected());
+                    currentCheckId = position;
+                }
+                notifyDataSetChanged();  //recyclerView 갱신
             }
         });
     }

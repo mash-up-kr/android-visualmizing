@@ -46,6 +46,7 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
     //현재 어느 단계에 있는지 알려주는 플래그
     int section;
 
+    //데이터 시각화 객체
     DataVisualizationItem mDataVisualizationItem;
 
     @Override
@@ -64,7 +65,7 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
         ab.setDisplayShowCustomEnabled(true);  //enable overriding the default toolbar layout
         ab.setDisplayShowTitleEnabled(false);  //disable the default title element here(for centered title)
 
-        //모델 객체 생성
+        //데이터 시각화 객체 객체 생성
         mDataVisualizationItem = new DataVisualizationItem();
 
         //inital fragment
@@ -89,13 +90,15 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
             public void onClick(View v) {
                 if (section < 3) {  //1, 2, 3단계 처리
                     section++;
-                    fm.beginTransaction().setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity)
+                    fm.beginTransaction()
+                            .setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity)
                             .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
                             .commit();
 
                 } else if (section == 3) {  //4단계(마지막 전) 처리
                     section++;
-                    fm.beginTransaction().setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity)
+                    fm.beginTransaction()
+                            .setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity)
                             .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
                             .commit();
                     btnNext.setText("완료");
@@ -113,7 +116,8 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
                 //이전버튼이라면
                 if (section > 0) {
                     section--;
-                    fm.beginTransaction().setCustomAnimations(R.anim.move_left_in_activity, R.anim.move_right_out_activity)
+                    fm.beginTransaction()
+                            .setCustomAnimations(R.anim.move_left_in_activity, R.anim.move_right_out_activity)
                             .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
                             .commit();
                     if (section == 3) {
@@ -126,6 +130,7 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
         });
     }
 
+    //HW Back key눌렀을 때의 동작 구현
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -133,6 +138,14 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
 
         //액티비티 전환 애니메이션
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
+    }
+
+    public DataVisualizationItem getDvItem(){
+        return mDataVisualizationItem;
+    }
+
+    public void setDvItem(DataVisualizationItem item){
+        mDataVisualizationItem = item;
     }
 
     @Override

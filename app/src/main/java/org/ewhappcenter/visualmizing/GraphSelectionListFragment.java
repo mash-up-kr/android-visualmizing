@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 //dv 1번째 fragment
+//Todo: 그래프 선택시 콜백리스너로 프래그먼트에서 모델객체에 정보 저장
 public class GraphSelectionListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

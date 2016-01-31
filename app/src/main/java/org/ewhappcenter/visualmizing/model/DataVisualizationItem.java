@@ -10,11 +10,12 @@ import java.util.HashMap;
  데이터 시각화할 정보를 담은 클래스
  */
 public class DataVisualizationItem {
-    int chart;  //그래프 종류
+    int chartId;  //그래프 종류
 
     //디자인 종류
-    int singleColor;  //단색
-    int pattern;  //무늬
+    int designId;
+    int singleColorId;  //단색
+    int patternId;  //무늬
 
     //데이터 표시 정보
     boolean isLabel;  //레이블 표시여부
@@ -25,47 +26,58 @@ public class DataVisualizationItem {
     ArrayList<HashMap<String, Double>> dataList;
 
     public DataVisualizationItem() {
-        this.chart = 0;
-        this.singleColor = 0;
-        this.pattern = 0;
+        this.chartId = -1;
+        this.designId = -1;
+        this.singleColorId = -1;
+        this.patternId = -1;
         this.isLabel = false;
-        this.textSize = 0;
-        this.textStyle = 0;
+        this.textSize = -1;
+        this.textStyle = -1;
         this.dataList = null;
     }
 
-    public DataVisualizationItem(int chart, int singleColor, int pattern, boolean isLabel, int textSize, int textStyle, ArrayList<HashMap<String, Double>> dataList) {
-        this.chart = chart;
-        this.singleColor = singleColor;
-        this.pattern = pattern;
+    public DataVisualizationItem(int chartId, int designId, int singleColorId, int patternId, boolean isLabel, int textSize, int textStyle, ArrayList<HashMap<String, Double>> dataList) {
+        this.chartId = chartId;
+        this.designId = designId;
+        this.singleColorId = singleColorId;
+        this.patternId = patternId;
         this.isLabel = isLabel;
         this.textSize = textSize;
         this.textStyle = textStyle;
         this.dataList = dataList;
     }
 
-    public int getChart() {
-        return chart;
+    public int getChartId() {
+
+        return chartId;
     }
 
-    public void setChart(int chart) {
-        this.chart = chart;
+    public void setChartId(int chartId) {
+        this.chartId = chartId;
     }
 
-    public int getSingleColor() {
-        return singleColor;
+    public int getDesignId() {
+        return designId;
     }
 
-    public void setSingleColor(int singleColor) {
-        this.singleColor = singleColor;
+    public void setDesignId(int designId) {
+        this.designId = designId;
     }
 
-    public int getPattern() {
-        return pattern;
+    public int getSingleColorId() {
+        return singleColorId;
     }
 
-    public void setPattern(int pattern) {
-        this.pattern = pattern;
+    public void setSingleColorId(int singleColorId) {
+        this.singleColorId = singleColorId;
+    }
+
+    public int getPatternId() {
+        return patternId;
+    }
+
+    public void setPatternId(int patternId) {
+        this.patternId = patternId;
     }
 
     public boolean isLabel() {

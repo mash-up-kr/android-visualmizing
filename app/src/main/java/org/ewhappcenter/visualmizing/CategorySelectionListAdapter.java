@@ -1,5 +1,6 @@
 package org.ewhappcenter.visualmizing;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
@@ -10,41 +11,44 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.ewhappcenter.visualmizing.model.GraphItem;
+import org.ewhappcenter.visualmizing.model.CategoryItem;
 
 import java.util.ArrayList;
 
-public class GraphSelectionListAdapter extends RecyclerView.Adapter<GraphSelectionListAdapter.ViewHolder> {
+/**
+ * Created by Dong on 2016-02-28.
+ */
+public class CategorySelectionListAdapter extends RecyclerView.Adapter<CategorySelectionListAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<GraphItem> mGraphItemArrayList;
+    private ArrayList<CategoryItem> mCategoryItemArrayList;
 
-    //현재 체크된 그래프 id
+    //현재 체크된 카테고리 id
     private int currentCheckId = -1;
 
-    public GraphSelectionListAdapter(Context context, ArrayList<GraphItem> graphItemArrayList) {
+    public CategorySelectionListAdapter(Context context, ArrayList<CategoryItem> categoryItemArrayList) {
         this.mContext = context;
-        this.mGraphItemArrayList = graphItemArrayList;
+        this.mCategoryItemArrayList = categoryItemArrayList;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_grahp, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_category, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final GraphItem graphItem = mGraphItemArrayList.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final CategoryItem categoryItem = mCategoryItemArrayList.get(position);
 
-        holder.tvGraphName.setText(graphItem.getName());
-        holder.ivGraph.setImageResource(graphItem.getResId());
+        holder.tvCategoryName.setText(categoryItem.getName());
+        holder.ivCategory.setImageResource(categoryItem.getResId());
 
         //뷰에 선택 여부 표시
-        if (graphItem.isSelected()) {  //선택
-            ((CardView) holder.mView).setCardBackgroundColor(Color.parseColor("#64d4b8"));
+        if (categoryItem.isSelected()) {  //선택
+            holder.mView.setBackgroundColor(Color.parseColor("#64d4b8"));
         } else {  //미선택
-            ((CardView) holder.mView).setCardBackgroundColor(Color.parseColor("#f9f4f4"));
+            holder.mView.setBackgroundColor(Color.parseColor("#f9f4f4"));
         }
 
         //그래프 선택 여부
@@ -53,15 +57,15 @@ public class GraphSelectionListAdapter extends RecyclerView.Adapter<GraphSelecti
             @Override
             public void onClick(View v) {
                 //선택 정보 clear
-                for (int i = 0; i < mGraphItemArrayList.size(); i++) {
-                    mGraphItemArrayList.get(i).setSelected(false);
+                for (int i = 0; i < mCategoryItemArrayList.size(); i++) {
+                    mCategoryItemArrayList.get(i).setSelected(false);
                 }
 
                 if (currentCheckId == position) {  //toggle 기능
                     currentCheckId = -1;  //toggle 기능 초기화
                 } else {  //하나만 선택하게
                     //선택 정보 set
-                    graphItem.setSelected(!graphItem.isSelected());
+                    categoryItem.setSelected(!categoryItem.isSelected());
                     currentCheckId = position;
                 }
                 notifyDataSetChanged();  //recyclerView 갱신
@@ -71,19 +75,19 @@ public class GraphSelectionListAdapter extends RecyclerView.Adapter<GraphSelecti
 
     @Override
     public int getItemCount() {
-        return mGraphItemArrayList.size();
+        return mCategoryItemArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView tvGraphName;
-        public final ImageView ivGraph;
+        View mView;
+        TextView tvCategoryName;
+        ImageView ivCategory;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            tvGraphName = (TextView) mView.findViewById(R.id.textView_graph_name);
-            ivGraph = (ImageView) mView.findViewById(R.id.imageView_graph);
+            tvCategoryName = (TextView) mView.findViewById(R.id.textView_cateogry_name);
+            ivCategory = (ImageView) mView.findViewById(R.id.imageView_category);
         }
     }
 }

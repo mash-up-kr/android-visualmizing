@@ -4,88 +4,75 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+
+import org.ewhappcenter.visualmizing.utils.SpacesItemDecoration;
+import org.ewhappcenter.visualmizing.utils.ViewUtils;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DataInputFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-
+//dv 3번째 fragment
 public class DataInputFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @Bind(R.id.recyclerView_data_input)
+    RecyclerView rvDataInput;
 
-    private OnFragmentInteractionListener mListener;
+    @Bind(R.id.button_data_input_add)
+    Button btnDataInputAdd;
+
+    @Bind(R.id.editText_data_input_text_size)
+    EditText etTextSize;
+
+    @Bind(R.id.checkBox_data_input_text_bold)
+    CheckBox cbTextBold;
+
+    DataInputListAdapter mDataInputListAdapter;
 
     public DataInputFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DataInputFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DataInputFragment newInstance(String param1, String param2) {
+    public static DataInputFragment newInstance() {
         DataInputFragment fragment = new DataInputFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_data_input, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        View view = inflater.inflate(R.layout.fragment_data_input, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement org.ewhappcenter.visualmizing.OnFragmentInteractionListener");
-        }
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Set the recyclerView
+        rvDataInput.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvDataInput.addItemDecoration(new SpacesItemDecoration(ViewUtils.getDpToPixel(getActivity(), 12)));
+        mDataInputListAdapter = new DataInputListAdapter(getActivity());
+        rvDataInput.setAdapter(mDataInputListAdapter);
+
+        btnDataInputAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDataInputListAdapter.addDataInputItem();
+            }
+        });
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
 }

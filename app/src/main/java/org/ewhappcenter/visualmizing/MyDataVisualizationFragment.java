@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.ewhappcenter.visualmizing.dummy.DummyContent;
+import org.ewhappcenter.visualmizing.utils.SpacesItemDecoration;
+import org.ewhappcenter.visualmizing.utils.ViewUtils;
 
 /**
  * A fragment representing a list of Items.
@@ -59,7 +61,7 @@ public class MyDataVisualizationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_today, container, false);
 
-        // Set the adapter
+        // Set the recyclerView
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -69,10 +71,10 @@ public class MyDataVisualizationFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.addItemDecoration(new SpacesItemDecoration(ViewUtils.getDpToPixel(getActivity(), 8)));
         }
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -90,7 +92,4 @@ public class MyDataVisualizationFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-
-
 }

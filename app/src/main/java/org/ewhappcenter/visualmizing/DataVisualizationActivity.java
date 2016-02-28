@@ -44,7 +44,7 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
     String[] fragmentTags = {"graphSelection", "designSelection", "dataInput", "explanationInput", "preview"};
 
     //현재 어느 단계에 있는지 알려주는 플래그
-    int section;
+    int currentSection;
 
     //데이터 시각화 객체
     DataVisualizationItem mDataVisualizationItem;
@@ -71,35 +71,35 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
         //inital fragment
         mFragments = new ArrayList<>();
         mFragments.add(GraphSelectionListFragment.newInstance());
-        mFragments.add(DesignSelectionFragment.newInstance("", ""));
-        mFragments.add(DataInputFragment.newInstance("", ""));
-        mFragments.add(ExplanationInputFragment.newInstance("", ""));
-        mFragments.add(PreviewFragment.newInstance("", ""));
+        mFragments.add(DesignSelectionFragment.newInstance());
+        mFragments.add(DataInputFragment.newInstance());
+        mFragments.add(ExplanationInputFragment.newInstance());
+        mFragments.add(PreviewFragment.newInstance());
 
         fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.container_fragment);
 
         if (fragment == null) {
-            section = 0;
-            fm.beginTransaction().add(R.id.container_fragment, mFragments.get(section), fragmentTags[section]).commit();
+            currentSection = 0;
+            fm.beginTransaction().add(R.id.container_fragment, mFragments.get(currentSection), fragmentTags[currentSection]).commit();
         }
 
         //Todo: 프래그먼트 전환 애니메이션 구현
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (section < 3) {  //1, 2, 3단계 처리
-                    section++;
+                if (currentSection < 3) {  //1, 2, 3단계 처리
+                    currentSection++;
                     fm.beginTransaction()
                             .setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity)
-                            .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
+                            .replace(R.id.container_fragment, mFragments.get(currentSection), fragmentTags[currentSection])
                             .commit();
 
-                } else if (section == 3) {  //4단계(마지막 전) 처리
-                    section++;
+                } else if (currentSection == 3) {  //4단계(마지막 전) 처리
+                    currentSection++;
                     fm.beginTransaction()
                             .setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity)
-                            .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
+                            .replace(R.id.container_fragment, mFragments.get(currentSection), fragmentTags[currentSection])
                             .commit();
                     btnNext.setText("완료");
                 } else {  //5단계(마지막) 처리
@@ -114,13 +114,13 @@ public class DataVisualizationActivity extends AppCompatActivity implements OnFr
             @Override
             public void onClick(View v) {
                 //이전버튼이라면
-                if (section > 0) {
-                    section--;
+                if (currentSection > 0) {
+                    currentSection--;
                     fm.beginTransaction()
                             .setCustomAnimations(R.anim.move_left_in_activity, R.anim.move_right_out_activity)
-                            .replace(R.id.container_fragment, mFragments.get(section), fragmentTags[section])
+                            .replace(R.id.container_fragment, mFragments.get(currentSection), fragmentTags[currentSection])
                             .commit();
-                    if (section == 3) {
+                    if (currentSection == 3) {
                         btnNext.setText("다음 단계");
                     }
                 } else {

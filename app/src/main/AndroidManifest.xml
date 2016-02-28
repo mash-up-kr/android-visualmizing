@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".DataVisualizationActivity"
             android:label="@string/title_activity_data_visualization"
             android:parentActivityName=".MainActivity"

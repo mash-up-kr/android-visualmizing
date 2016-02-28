@@ -1,7 +1,10 @@
 package org.ewhappcenter.visualmizing.utils;
 
 import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -23,8 +26,14 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         outRect.right = space;
         outRect.bottom = space;
 
-        if(parent.getChildLayoutPosition(view) == 0 || parent.getChildLayoutPosition(view) == 1){
-            outRect.top = space;
+        if(parent.getLayoutManager() instanceof GridLayoutManager){
+            if(parent.getChildLayoutPosition(view) == 0 || parent.getChildLayoutPosition(view) == 1){
+                outRect.top = space;
+            }
+        }else{
+            if(parent.getChildLayoutPosition(view) == 0){
+                outRect.top = space;
+            }
         }
     }
 }

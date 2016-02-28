@@ -1,24 +1,16 @@
 package org.ewhappcenter.visualmizing.model;
 
 /**
- * Created by Dong on 2016-01-31.
+ * Created by Dong on 2016-02-28.
  */
-public class GraphItem {
+public class CategoryItem {
     String name;
     int resId;
     boolean selected;
 
-    public GraphItem(String name, int resId, boolean selected) {
+    public CategoryItem(String name, int resId, boolean selected) {
         this.name = name;
         this.resId = resId;
-        this.selected = selected;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
         this.selected = selected;
     }
 
@@ -36,5 +28,13 @@ public class GraphItem {
 
     public void setResId(int resId) {
         this.resId = resId;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

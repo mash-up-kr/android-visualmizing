@@ -50,7 +50,7 @@ public class DataInputListAdapter extends RecyclerView.Adapter<DataInputListAdap
 
         //데이터 저장
         //처음에 표시될 때도 texthange 이벤트 발생
-        //Todo: 버그... 해결 요망, 데이터가 꼬인다.
+        //Todo: 버그... 해결 요망, 데이터가 꼬인다. 입력 데이터 처리해야 할것
         holder.etDataInputKey.addTextChangedListener(new TextWatcher() {
 
             int flag = 0;
